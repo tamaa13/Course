@@ -2,6 +2,8 @@
 const {
   Model
 } = require('sequelize');
+
+const bcrypt = require('bcryptjs')
 module.exports = (sequelize, DataTypes) => {
   class Course extends Model {
     /**
@@ -18,6 +20,11 @@ module.exports = (sequelize, DataTypes) => {
     category: DataTypes.STRING,
     price: DataTypes.INTEGER
   }, {
+    hooks: {
+      beforeCreate(){
+  
+      }
+  },
     sequelize,
     modelName: 'Course',
   });
