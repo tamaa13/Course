@@ -5,10 +5,10 @@ const Router = express.Router()
 Router.get('/', Controller.home)
 
 Router.get('/register', Controller.getRegister)
-Router.post('/register', Controller)
+Router.post('/register', Controller.postRegister)
 
-Router.get('/login', Controller)
-Router.post('/login', Controller)
+Router.get('/login', Controller.getLogin)
+Router.post('/login', Controller.postLogin)
 Router.get('/logout', Controller)
 
 Router.get('/dashboard', Controller)
