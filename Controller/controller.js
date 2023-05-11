@@ -6,41 +6,39 @@ const bcrypt = require('bcryptjs')
 class Controller {
     static home(req, res) {
         Course.findAll()
-        .then((data) => res.render('index', {moneyFormattedIdr, courses: data}))
-        .catch((err) => res.send(err))
+            .then((data) => res.render('index', { moneyFormattedIdr, courses: data }))
+            .catch((err) => res.send(err))
     }
 
     static getRegister(req, res) {
         res.render('formRegister')
     }
 
-    static dashboard(req, res){
+    static dashboard(req, res) {
         Course.findAll()
-        .then((data) => res.render('dashboard', {moneyFormattedIdr, courses: data}))
-        .catch((err) => res.send(err))
-        
-        
+            .then((data) => res.render('dashboard', { moneyFormattedIdr, courses: data }))
+            .catch((err) => res.send(err))
     }
 
-    static getCourse(req, res){
+    static getCourse(req, res) {
         res.render('addCourse')
     }
 
-    static postCourse(req, res){
+    static postCourse(req, res) {
         const { courseName, category, price, imageUrl } = req.body
         Course.create({ courseName, category, price, imageUrl })
             .then(() => res.redirect("/dashboard"))
             .catch((err) => res.send(err))
     }
 
-    static editCourse(req, res){
+    static editCourse(req, res) {
         const { courseId } = req.params
         Course.findByPk(+courseId)
-        .then((data) => res.render('editCourse', {courses: data}))
-        .catch((err) => res.send(err))
+            .then((data) => res.render('editCourse', { courses: data }))
+            .catch((err) => res.send(err))
     }
 
-    static updateCourse(req, res){
+    static updateCourse(req, res) {
         const { courseId } = req.params
         const { courseName, category, price, imageUrl } = req.body
         Course.update({ courseName, category, price, imageUrl }, { where: { id: courseId } })
@@ -70,7 +68,16 @@ class Controller {
                 if (Accounts) {
                     const isValidPassword = bcrypt.compareSync(password, Accounts.password)
                     if (isValidPassword) {
-                        return res.redirect('/')
+
+                        req.session.userId = Accounts.id
+                        req.session.role = Accounts.role
+
+                        if (req.session.role === 'admin') {
+                            return res.redirect('/dashboard')
+                        }
+                        else if (req.session.role === 'user') {
+                            return res.redirect('/courses')
+                        }
                     } else {
                         const errors = "invalid email/password"
                         return res.redirect(`/login?error=${errors}`)
@@ -82,13 +89,16 @@ class Controller {
             })
             .catch((err) => res.send(err))
     }
-    static deleteCourse(req, res){
+    static deleteCourse(req, res) {
         const { courseId } = req.params
         Course.destroy({ where: { id: courseId } })
             .then(() => res.redirect("/dashboard"))
             .catch((err) => res.send(err))
     }
 
+    static user(req, res) {
+        res.send('ini user')
+    }
 }
 
 module.exports = Controller
