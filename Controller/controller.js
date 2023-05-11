@@ -21,6 +21,7 @@ class Controller {
     }
 
     static getCourse(req, res) {
+
         res.render('addCourse')
     }
 
@@ -47,10 +48,13 @@ class Controller {
     }
 
     static postRegister(req, res) {
-        const { email, password, role } = req.body
+        const { email, password, role, name, address, gender } = req.body
         Account.create({ email, password, role })
             .then(data => {
-                res.redirect('/')
+                Profile.create({ name, address, AccountId: data.id, gender })
+            })
+            .then(data => {
+                res.redirect('/login')
             })
             .catch(err => {
                 res.send(err)
@@ -98,12 +102,21 @@ class Controller {
 
     static getCourses(req, res) {
         Course.findAll()
-            .then((data) => res.render("courses", {moneyFormattedIdr,  courses: data }))
+            .then((data) => res.render("courses", { moneyFormattedIdr, courses: data }))
             .catch((err) => res.send(err))
     }
     static postCourses(req, res) {
         Subscribe.findAll()
-            .then((data) => res.render("courses", {moneyFormattedIdr,  courses: data }))
+            .then((data) => res.render("courses", { moneyFormattedIdr, courses: data }))
+            .catch((err) => res.send(err))
+    }
+
+    static getProfile(req, res) {
+        const { profileId } = req.params
+        Profile.findByPk({
+            where: profileId
+        })
+            .then((data) => console.log({ data }))
             .catch((err) => res.send(err))
     }
 }

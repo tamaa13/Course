@@ -45,7 +45,8 @@ Router.post('/dashboard/edit/:courseId', Controller.updateCourse)
 Router.get('/dashboard/delete/:coursesId', Controller.deleteCourse)
 
 Router.get('/courses', user, Controller.getCourses) // bedanya pake s
-Router.post('/courses', user, Controller.postCourses) // bedanya pake s
+Router.post('/courses', Controller.postCourses) // bedanya pake s
+Router.get('/profile/:profileId', Controller.getProfile) // bedanya pake s
 // Router.get('/courses/:id', Controller)
 
 
