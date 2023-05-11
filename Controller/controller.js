@@ -1,7 +1,8 @@
 const { moneyFormattedIdr } = require('../helper/helper')
 const { Account, Course, Profile, Subscribe } = require('../models')
-const bcrypt = require('bcryptjs')
-
+const bcrypt = require('bcryptjs');
+const profile = require('../models/profile');
+let id;
 
 class Controller {
     static home(req, res) {
@@ -48,10 +49,10 @@ class Controller {
     }
 
     static postRegister(req, res) {
-        const { email, password, role, name, address, gender } = req.body
+        const { email, password, role, name, address, gender, phoneNumber } = req.body
         Account.create({ email, password, role })
             .then(data => {
-                Profile.create({ name, address, AccountId: data.id, gender })
+                Profile.create({ name, address, AccountId: data.id, gender, phoneNumber })
             })
             .then(data => {
                 res.redirect('/login')
@@ -73,6 +74,7 @@ class Controller {
                     const isValidPassword = bcrypt.compareSync(password, Accounts.password)
                     if (isValidPassword) {
 
+                        id = Accounts.id
                         req.session.userId = Accounts.id
                         req.session.role = Accounts.role
 
@@ -80,7 +82,7 @@ class Controller {
                             return res.redirect('/dashboard')
                         }
                         else if (req.session.role === 'user') {
-                            return res.redirect('/courses')
+                            return res.redirect(`/courses/${req.session.userId}`)
                         }
                     } else {
                         const errors = "invalid email/password"
@@ -102,22 +104,37 @@ class Controller {
 
     static getCourses(req, res) {
         Course.findAll()
-            .then((data) => res.render("courses", { moneyFormattedIdr, courses: data }))
+            .then((data) => res.render("courses", { moneyFormattedIdr, courses: data, id }))
             .catch((err) => res.send(err))
     }
     static postCourses(req, res) {
         Subscribe.findAll()
-            .then((data) => res.render("courses", { moneyFormattedIdr, courses: data }))
+            .then((data) => res.render("courses", { moneyFormattedIdr, courses: data, id }))
             .catch((err) => res.send(err))
     }
 
     static getProfile(req, res) {
         const { profileId } = req.params
-        Profile.findByPk({
-            where: profileId
+        Profile.findOne({
+            where: {
+                AccountId: profileId
+            }
         })
-            .then((data) => console.log({ data }))
+            .then((data) => res.render('editProfile', { data }))
             .catch((err) => res.send(err))
+    }
+
+    static editProfile(req, res) {
+        const { profileId } = req.params
+        const { name, address, phoneNumber } = req.body
+        console.log(req.body);
+        Profile.update({ name, address, AccountId: profileId, phoneNumber }, {
+            where: {
+                id: profileId
+            }
+        })
+            .then(data => res.redirect(`/courses/${profileId}`))
+            .then(err => res.send(err))
     }
 }
 

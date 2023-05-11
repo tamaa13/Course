@@ -22,7 +22,7 @@ Router.use(function (req, res, next) {
 const admin = function (req, res, next) {
     if (req.session.role !== 'admin') {
         const error = 'user'
-        res.redirect(`/courses?error=${error}`)
+        res.redirect(`/courses/:profileId/?error=${error}`)
     } else {
         next()
     }
@@ -44,9 +44,10 @@ Router.get('/dashboard/edit/:courseId', Controller.editCourse)
 Router.post('/dashboard/edit/:courseId', Controller.updateCourse)
 Router.get('/dashboard/delete/:coursesId', Controller.deleteCourse)
 
-Router.get('/courses', user, Controller.getCourses) // bedanya pake s
-Router.post('/courses', Controller.postCourses) // bedanya pake s
+Router.get('/courses/:profileId', user, Controller.getCourses) // bedanya pake s
+// Router.post('/courses', Controller.postCourses) // bedanya pake s
 Router.get('/profile/:profileId', Controller.getProfile) // bedanya pake s
+Router.post('/profile/:profileId', Controller.editProfile) // bedanya pake s
 // Router.get('/courses/:id', Controller)
 
 
