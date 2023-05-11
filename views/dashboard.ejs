@@ -2,34 +2,70 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <%- include('_link.ejs') %>
-        <title>Dashboard</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <%- include('_link.ejs') %>
+    <title>Dashboard</title>
 </head>
 
 <body>
-    <%- include('_navbar.ejs') %>
+  <%- include('_navbar.ejs') %>
 
-    <p>
-        <%= JSON.stringify(courses) %>
-    </p>
+    <div style="margin-top: 30px; margin-left: 550px; margin-bottom: 30px;">
+      <a href="/dashboard/addCourse"><button class="btn btn-outline btn-wide">Add Course</button></a>
+    </div>
 
-    <% courses.forEach(el => { %>
-
-        <div class="card w-96 bg-base-100 shadow-xl">
-            <div class="card-body">
-              <h2 class="card-title"><%= el.courseName %> <%= el.category %></h2>
-              <p><%= el.courseName %> asik lohh!!</p>
-              <div class="card-actions justify-end">
-                <button class="btn btn-primary">Subscribe</button>
-              </div>
-            </div>
-            <figure><img src="https://i0.wp.com/kinonara.com/wp-content/uploads/Saitama.jpg" /></figure>
-          </div>
-     
-    <% }) %>
+    
+    <div class="overflow-x-auto w-full px-10">
+      <table class="table w-full">
+        <!-- head -->
+        <thead>
+          <tr>
+            <th>Course Name</th>
+            <th>Category</th>
+            <th>Price</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- row 1 -->
+          <% courses.forEach(el=> { %>
+            <tr>
+              <td>
+                <div class="flex items-center space-x-3">
+                  <div class="avatar">
+                    <div class="mask mask-squircle w-12 h-12">
+                      <img src="<%= el.imageUrl %>" alt="Avatar Tailwind CSS Component" />
+                    </div>
+                  </div>
+                  <div>
+                    <div class="font-bold"><%= el.courseName %></div>
+                    <div class="text-sm opacity-50">Offline/Remote</div>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <%= el.category %>
+                <br/>
+                <span class="badge badge-ghost badge-sm">Duration: 10 year like a Steve Jobs so you can get the Jobs as a "Fullstack Brain"</span>
+              </td>
+              <td><%= moneyFormattedIdr(el.price) %></td>
+              <td>
+                <div class="card-actions justify-end">
+                  <a href="/dashboard/edit/<%= el.id %>"><button class="btn btn-outline-secondary btn-xs">Edit</button></a>
+                </div>
+                <div class="card-actions justify-end">
+                  <a href="/dashboard/delete/<%= el.id %>"><button class="btn btn-outline-secondary btn-xs">Delete</button></a>
+                </div>
+              </td>
+            </tr>
+            <% }) %>
+            <!-- row 2 -->
+            
+        </table>
+      </div>
+      
 
 </body>
 
