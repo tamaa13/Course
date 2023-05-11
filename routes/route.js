@@ -1,22 +1,22 @@
 const express = require("express")
-const Controller = require("../controllers/controller")
-const router = express.Router()
+const Controller = require("../Controller/controller")
+const Router = express.Router()
 
-router.get('/', Controller)
+Router.get('/', Controller.home)
 
-router.get('/register', Controller)
-router.post('/register', Controller)
+Router.get('/register', Controller)
+Router.post('/register', Controller)
 
-router.get('/login', Controller)
-router.post('/login', Controller)
-router.get('/logout', Controller)
+Router.get('/login', Controller)
+Router.post('/login', Controller)
+Router.get('/logout', Controller)
 
-router.get('/dashboard', Controller)
-router.get('/dashboard/addCourse', Controller)
-router.post('/dashboard/addCourse', Controller)
-router.get('/dashboard/delete/:coursesId', Controller)
+Router.get('/dashboard', Controller)
+Router.get('/dashboard/addCourse', Controller)
+Router.post('/dashboard/addCourse', Controller)
+Router.get('/dashboard/delete/:coursesId', Controller)
 
-router.get('/courses', Controller)
-router.get('/courses/:id', Controller)
+Router.get('/courses', Controller)
+Router.get('/courses/:id', Controller)
 
-module.exports = router
+module.exports = Router
