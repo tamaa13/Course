@@ -10,7 +10,7 @@
 </head>
 
 <body>
-    <%- include('_navbar.ejs') %>
+    <%- include('_navbarlogin.ejs') %>
     <%= JSON.stringify(courses) %>
     <% courses.forEach(el => { %>
         <form action="/courses" method="post">

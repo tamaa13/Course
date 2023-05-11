@@ -28,24 +28,28 @@ const admin = function (req, res, next) {
     }
 }
 
-const user = function (req, res) {
+const user = function (req, res, next) {
     if (req.session.role !== 'user') {
         const error = 'admin'
         res.redirect(`/dashboard?error=${error}`)
+    } else {
+        next()
     }
-    }
+}
 
-    Router.get('/dashboard', admin, Controller.dashboard)
-    Router.get('/dashboard/addCourse', Controller.getCourse)
-    Router.post('/dashboard/addCourse', Controller.postCourse)
-    Router.get('/dashboard/delete/:coursesId', Controller.deleteCourse)
+Router.get('/dashboard', admin, Controller.dashboard)
+Router.get('/dashboard/addCourse', Controller.getCourse)
+Router.post('/dashboard/addCourse', Controller.postCourse)
+Router.get('/dashboard/edit/:courseId', Controller.editCourse)
+Router.post('/dashboard/edit/:courseId', Controller.updateCourse)
+Router.get('/dashboard/delete/:coursesId', Controller.deleteCourse)
 
-    Router.get('/courses', user, Controller.getCourses) // bedanya pake s
-    Router.post('/courses', Controller.postCourses) // bedanya pake s
-    // Router.get('/courses/:id', Controller)
+Router.get('/courses', user, Controller.getCourses) // bedanya pake s
+Router.post('/courses', user, Controller.postCourses) // bedanya pake s
+// Router.get('/courses/:id', Controller)
 
 
 
 
-    Router.get('/logout', Controller)
-    module.exports = Router
+Router.get('/logout', Controller)
+module.exports = Router
