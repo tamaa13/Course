@@ -1,0 +1,17 @@
+[
+    {
+        "courseName": "Belajar JS",
+        "category": "Advance",
+        "price": 120000
+    },
+    {
+        "courseName": "Belajar PHP",
+        "category": "Dasar",
+        "price": 190000
+    },
+    {
+        "courseName": "Belajar GO",
+        "category": "Dasar",
+        "price": 110000
+    }
+]

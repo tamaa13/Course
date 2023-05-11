@@ -1,0 +1,14 @@
+[
+    {
+        "name": "Si Ganteng",
+        "address": "Jl jalan",
+        "phoneNumber": "08123123123",
+        "AccountId": 1
+    },
+    {
+        "name": "Si Jelek",
+        "address": "Jl jalan",
+        "phoneNumber": "08123123122",
+        "AccountId": 2
+    }
+]
