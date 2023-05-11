@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <%- include('_link.ejs') %>
+        <title>Document</title>
+</head>
+
+<body>
+    <%- include('_navbar.ejs') %>
+    <%= JSON.stringify(courses) %>
+    <% courses.forEach(el => { %>
+        <form action="/courses" method="post">
+        <div class="card w-96 bg-base-100 shadow-xl">
+            <figure class="px-10 pt-10">
+                <img src="<%= el.imageUrl %>" class="rounded-xl" />
+            </figure>
+            <div class="card-body items-center text-center">
+                <h2 class="card-title"><%= el.courseName %></h2>
+                <p>Segera Subscribe. Hanya <%= moneyFormattedIdr(el.price) %></p>
+                <p>Kelas: <%= el.category %></p>
+                <div class="card-actions">
+                    <button type="submit" value="<%= el.id %>" class="btn btn-primary">Subscribe Now</button>
+                </div>
+            </div>
+        </div>
+        </form>
+    <% }) %>
+        
+</body>
+
+</html>

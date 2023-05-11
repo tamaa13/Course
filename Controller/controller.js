@@ -96,8 +96,18 @@ class Controller {
             .catch((err) => res.send(err))
     }
 
-    static user(req, res) {
-        res.send('ini user')
+    static getCourses(req, res) {
+        Course.findAll()
+            .then((data) => res.render("courses", {moneyFormattedIdr,  courses: data }))
+            .catch((err) => res.send(err))
+    }
+    static postCourses(req, res) {
+        // const { AccountId, CourseId } = req.body
+        // Subscribe.create({ AccountId, CourseId })
+        //     .then(() => res.redirect("/courses"))
+        //     .catch((err) => res.send(err))
+
+        req.session.Account.id = user.id
     }
 }
 
