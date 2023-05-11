@@ -14,7 +14,11 @@ Router.get('/logout', Controller)
 Router.get('/dashboard', Controller.dashboard)
 Router.get('/dashboard/addCourse', Controller.getCourse)
 Router.post('/dashboard/addCourse', Controller.postCourse)
-Router.get('/dashboard/delete/:coursesId', Controller)
+
+Router.get('/dashboard/edit/:courseId', Controller.editCourse)
+Router.post('/dashboard/edit/:courseId', Controller.updateCourse)
+
+Router.get('/dashboard/delete/:courseId', Controller.deleteCourse)
 
 Router.get('/courses', Controller)
 Router.get('/courses/:id', Controller)

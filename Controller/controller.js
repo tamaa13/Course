@@ -1,9 +1,13 @@
+const { moneyFormattedIdr } = require('../helper/helper')
 const { Account, Course, Profile, Subscribe } = require('../models')
 const bcrypt = require('bcryptjs')
 
+
 class Controller {
     static home(req, res) {
-        res.render('index')
+        Course.findAll()
+        .then((data) => res.render('index', {moneyFormattedIdr, courses: data}))
+        .catch((err) => res.send(err))
     }
 
     static getRegister(req, res) {
@@ -12,8 +16,9 @@ class Controller {
 
     static dashboard(req, res){
         Course.findAll()
-        .then((data) => res.render('dashboard', {courses: data}))
+        .then((data) => res.render('dashboard', {moneyFormattedIdr, courses: data}))
         .catch((err) => res.send(err))
+        
         
     }
 
@@ -22,12 +27,27 @@ class Controller {
     }
 
     static postCourse(req, res){
-        const { courseName, category, price } = req.body
-        console.log(req.body);
-        Course.create({ courseName, category, price })
+        const { courseName, category, price, imageUrl } = req.body
+        Course.create({ courseName, category, price, imageUrl })
             .then(() => res.redirect("/dashboard"))
             .catch((err) => res.send(err))
     }
+
+    static editCourse(req, res){
+        const { courseId } = req.params
+        Course.findByPk(+courseId)
+        .then((data) => res.render('editCourse', {courses: data}))
+        .catch((err) => res.send(err))
+    }
+
+    static updateCourse(req, res){
+        const { courseId } = req.params
+        const { courseName, category, price, imageUrl } = req.body
+        Course.update({ courseName, category, price, imageUrl }, { where: { id: courseId } })
+            .then(() => res.redirect("/dashboard"))
+            .catch((err) => console.log(err))
+    }
+
     static postRegister(req, res) {
         const { email, password, role } = req.body
         Account.create({ email, password, role })
@@ -60,6 +80,12 @@ class Controller {
                     return res.redirect(`/login?error=${errors}`)
                 }
             })
+            .catch((err) => res.send(err))
+    }
+    static deleteCourse(req, res){
+        const { courseId } = req.params
+        Course.destroy({ where: { id: courseId } })
+            .then(() => res.redirect("/dashboard"))
             .catch((err) => res.send(err))
     }
 

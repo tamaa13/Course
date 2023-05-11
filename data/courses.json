@@ -2,16 +2,19 @@
     {
         "courseName": "Belajar JS",
         "category": "Advance",
-        "price": 120000
+        "price": 120000,
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/JavaScript-logo.png/800px-JavaScript-logo.png"
     },
     {
         "courseName": "Belajar PHP",
-        "category": "Dasar",
-        "price": 190000
+        "category": "Basic",
+        "price": 190000,
+        "imageUrl": "https://www.php.net/images/meta-image.png"
     },
     {
         "courseName": "Belajar GO",
-        "category": "Dasar",
-        "price": 110000
+        "category": "Basic",
+        "price": 110000,
+        "imageUrl": "https://miro.medium.com/v2/resize:fit:1400/1*Ifpd_HtDiK9u6h68SZgNuA.png"
     }
 ]
