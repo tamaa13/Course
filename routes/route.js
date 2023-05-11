@@ -28,7 +28,7 @@ const admin = function (req, res, next) {
     }
 }
 
-const user = function (req, res, next) {
+const user = function (req, res) {
     if (req.session.role !== 'user') {
         const error = 'admin'
         res.redirect(`/dashboard?error=${error}`)
