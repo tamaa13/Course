@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <%- include('_link.ejs') %>
+        <title>Document</title>
+</head>
+
+<body>
+    <%- include('_navbar.ejs') %>
+
+    <form class="container" action="/dashboard/addCourse" method="post">
+        <div class="form-control w-full max-w-xs">
+            <label class="label">
+              <span class="label-text">Course Name</span>
+            </label>
+            <input type="text" placeholder="Type here" name="courseName" class="input input-bordered w-full max-w-xs" />
+            <label class="label">
+            </label>
+        </div>
+        <div class="form-control w-full max-w-xs">
+            <label class="label">
+              <span class="label-text">Category</span>
+            </label>
+            <select name="category" class="select select-bordered">
+              <option disabled selected>Pick one</option>
+              <option value="Basic">Basic</option>
+              <option value="Intermediated">Intermediate</option>
+              <option value="Advance">Advance</option>
+            </select>
+        </div>
+        <br>
+        <div class="form-control w-full max-w-xs">
+            <label class="label">
+              <span class="label-text">Price</span>
+            </label>
+            <input type="number" placeholder="Type here" name="price" class="input input-bordered w-full max-w-xs" />
+            <label class="label">
+            </label>
+        </div>
+        <div>
+            <button type="submit" value="Add" class="btn btn-outline-secondary">Add Course</button>
+        </div>
+        
+    </form>
+
+
+</body>
+
+</html>

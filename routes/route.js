@@ -7,13 +7,13 @@ Router.get('/', Controller.home)
 Router.get('/register', Controller.getRegister)
 Router.post('/register', Controller)
 
-Router.get('/login', Controller)
-Router.post('/login', Controller)
+Router.get('/login', Controller.getLogin)
+Router.post('/login', Controller.postLogin)
 Router.get('/logout', Controller)
 
-Router.get('/dashboard', Controller)
-Router.get('/dashboard/addCourse', Controller)
-Router.post('/dashboard/addCourse', Controller)
+Router.get('/dashboard', Controller.dashboard)
+Router.get('/dashboard/addCourse', Controller.getCourse)
+Router.post('/dashboard/addCourse', Controller.postCourse)
 Router.get('/dashboard/delete/:coursesId', Controller)
 
 Router.get('/courses', Controller)

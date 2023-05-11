@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <%- include('_link.ejs') %>
+        <title>Dashboard</title>
+</head>
+
+<body>
+    <%- include('_navbar.ejs') %>
+
+    <p>
+        <%= JSON.stringify(courses) %>
+    </p>
+
+    <% courses.forEach(el => { %>
+
+        <div class="card w-96 bg-base-100 shadow-xl">
+            <div class="card-body">
+              <h2 class="card-title"><%= el.courseName %> <%= el.category %></h2>
+              <p><%= el.courseName %> asik lohh!!</p>
+              <div class="card-actions justify-end">
+                <button class="btn btn-primary">Subscribe</button>
+              </div>
+            </div>
+            <figure><img src="https://i0.wp.com/kinonara.com/wp-content/uploads/Saitama.jpg" /></figure>
+          </div>
+     
+    <% }) %>
+
+</body>
+
+</html>

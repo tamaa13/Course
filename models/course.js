@@ -20,11 +20,6 @@ module.exports = (sequelize, DataTypes) => {
     category: DataTypes.STRING,
     price: DataTypes.INTEGER
   }, {
-    hooks: {
-      beforeCreate(){
-  
-      }
-  },
     sequelize,
     modelName: 'Course',
   });
